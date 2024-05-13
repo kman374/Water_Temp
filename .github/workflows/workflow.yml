@@ -4,8 +4,6 @@ on:
   schedule:
     - cron: '0 * * * *'  # Run every hour
   workflow_dispatch:  # Enable manual triggering
-  permissions:
-  contents: write
 
 jobs:
   build:
