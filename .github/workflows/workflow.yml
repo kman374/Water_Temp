@@ -3,6 +3,7 @@ name: Water Temperature Scraping and RSS Feed Generation
 on:
   schedule:
     - cron: '0 * * * *'  # Run every hour
+  workflow_dispatch:  # Enable manual triggering
 
 jobs:
   build:
