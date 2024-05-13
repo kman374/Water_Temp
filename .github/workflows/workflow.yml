@@ -36,10 +36,13 @@ jobs:
       - name: Generate RSS feed
         run: python rss_feed_generation.py
 
-      - name: Commit and push changes
-        run: |
-          git config --global user.name 'kman374'
-          git config --global user.email 'macman437@icloud.com'
-          git add temperature.db temperature_feed.xml
-          git commit -m 'Update water temperature data and RSS feed [skip ci]'
-          git push
+    - name: Commit and push changes
+  run: |
+    git config --global user.name 'kman374'
+    git config --global user.email 'macman437@icloud.com'
+    git add temperature.db temperature_feed.xml
+    git commit -m 'Update water temperature data and RSS feed [skip ci]'
+    git push https://github.com/kman374/watertemp.git HEAD:main
+  env:
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
