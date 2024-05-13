@@ -36,8 +36,8 @@ jobs:
       - name: Generate RSS feed
         run: python rss_feed_generation.py
 
-- name: Commit and push changes
-  run: |
+      - name: Commit and push changes
+        run: |
     git config --global user.name 'kman374'
     git config --global user.email 'macman437@icloud.com'
     git add temperature.db temperature_feed.xml
