@@ -13,7 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          ref: main  # Update to use Node.js 20
+          ref: main  # Update to use main branch
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'  # Update to use Node.js 20
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -33,8 +38,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@users.noreply.github.com'
+          git config --global user.name 'kman374'
+          git config --global user.email 'macman437@icloud.com'
           git add temperature.db temperature_feed.xml
           git commit -m 'Update water temperature data and RSS feed [skip ci]'
           git push
