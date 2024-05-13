@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import sqlite3
 
 def scrape_website(url):
     try:
@@ -19,7 +20,11 @@ def scrape_website(url):
                 # Found the "Temp- 3ft" parameter, extract the temperature value
                 temperature_value = param_element.find_next_sibling("td", class_="value")
                 if temperature_value:
-                    print("Temperature:", temperature_value.text.strip())
+                    temperature = temperature_value.text.strip()
+                    print("Temperature:", temperature)
+                    
+                    # Write temperature to database
+                    write_to_database(temperature)
                     return  # Exit the function after finding the temperature value
 
         # If "Temp- 3ft" parameter not found
@@ -27,6 +32,27 @@ def scrape_website(url):
 
     except requests.RequestException as e:
         print("Error fetching webpage:", e)
+
+def write_to_database(temperature):
+    try:
+        # Connect to the SQLite database
+        conn = sqlite3.connect('temperature.db')
+        c = conn.cursor()
+
+        # Create a table if not exists
+        c.execute('''CREATE TABLE IF NOT EXISTS temperature_data
+                     (temperature REAL)''')
+
+        # Insert temperature value into the table
+        c.execute("INSERT INTO temperature_data VALUES (?)", (temperature,))
+        
+        # Commit changes and close connection
+        conn.commit()
+        conn.close()
+
+        print("Temperature written to database successfully.")
+    except sqlite3.Error as e:
+        print("Error writing to database:", e)
 
 # URL of the website to scrape
 url = "https://wqdatalive.com/project/applet/html/867?refresh=true"
