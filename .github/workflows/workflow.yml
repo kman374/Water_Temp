@@ -43,6 +43,5 @@ jobs:
           git add temperature.db temperature_feed.xml
           git commit -m 'Update water temperature data and RSS feed [skip ci]'
           git push https://github.com/kman374/watertemp.git HEAD:main
-  env:
-    GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
