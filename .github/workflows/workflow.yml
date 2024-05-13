@@ -12,7 +12,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+        with:
+          # Update to Node.js 20
+          ref: v2.x
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
