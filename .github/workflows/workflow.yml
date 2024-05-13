@@ -13,8 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          # Update to Node.js 20
-          ref: v2.x
+          ref: v2.x  # Update to use Node.js 20
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
