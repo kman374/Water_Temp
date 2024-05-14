@@ -19,7 +19,7 @@ def generate_rss_feed():
     if latest_temperature:
         # Add the latest temperature as an entry to the feed
         fe = fg.add_entry()
-        fe.title('Temperature: ' + str(latest_temperature[0]))
+        fe.title(str(latest_temperature[0])+'°F')
 
     # Close database connection
     conn.close()
