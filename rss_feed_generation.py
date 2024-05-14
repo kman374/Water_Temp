@@ -5,6 +5,7 @@ def generate_rss_feed():
     # Initialize FeedGenerator
     fg = FeedGenerator()
     fg.title('Water Temperature RSS Feed')
+    fg.link(href='http://example.com', rel='alternate')
     fg.description('RSS feed for water temperature updates')
 
     # Connect to the SQLite database
