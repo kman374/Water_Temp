@@ -19,7 +19,6 @@ def generate_rss_feed():
     if latest_temperature:
         # Add the latest temperature as an entry to the feed
         fe = fg.add_entry()
-        # Set only the temperature as the title
         fe.title(str(latest_temperature[0])+'°F')
 
     # Close database connection
@@ -29,16 +28,9 @@ def generate_rss_feed():
     rss_feed = fg.rss_str(pretty=True)
     rss_feed_str = rss_feed.decode('utf-8')  # Decode bytes to string
 
-    # Extract only the title tag from the RSS feed
-    start_tag = '<title>'
-    end_tag = '</title>'
-    start_index = rss_feed_str.find(start_tag)
-    end_index = rss_feed_str.find(end_tag) + len(end_tag)
-    title_tag = rss_feed_str[start_index:end_index]
-
-    # Write only the title tag to the file
+    # Write RSS feed to file
     with open('temperature_feed.xml', 'w') as f:
-        f.write(title_tag)
+        f.write(rss_feed_str)
 
 # Generate RSS feed
 generate_rss_feed()
