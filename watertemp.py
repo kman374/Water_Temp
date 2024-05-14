@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import sqlite3
+from datetime import datetime
 
 def scrape_website(url):
     try:
@@ -41,10 +42,13 @@ def write_to_database(temperature):
 
         # Create a table if not exists
         c.execute('''CREATE TABLE IF NOT EXISTS temperature_data
-                     (temperature REAL)''')
+                     (temperature REAL, timestamp TEXT)''')
 
-        # Insert temperature value into the table
-        c.execute("INSERT INTO temperature_data VALUES (?)", (temperature,))
+        # Get current timestamp
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # Insert temperature value and timestamp into the table
+        c.execute("INSERT INTO temperature_data VALUES (?, ?)", (temperature, timestamp))
         
         # Commit changes and close connection
         conn.commit()
