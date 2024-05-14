@@ -1,4 +1,4 @@
-name: Water Temperature Scraping and RSS Feed Generation
+name: Water Temperature and RSS Feed Generation
 
 on:
   schedule:
