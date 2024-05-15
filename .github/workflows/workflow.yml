@@ -2,7 +2,7 @@ name: Water Temperature and RSS Feed Generation
 
 on:
   schedule:
-    - cron: '0 6,12,18,0 * * *'  # Run every six hours starting at 6:00 AM EST
+    - cron: '0 18/6 * * *'  # Run every six hours starting at 6:00 PM EST
   workflow_dispatch:  # Enable manual triggering
 
 jobs:
