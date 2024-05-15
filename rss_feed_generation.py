@@ -24,12 +24,12 @@ def generate_rss_feed():
     # Close database connection
     conn.close()
 
-    # Generate RSS feed as string
+    # Generate RSS feed as bytes
     rss_feed = fg.rss_str(pretty=True)
 
     # Write the RSS feed to a file
-    with open('temperature_feed.xml', 'w') as f:
-        f.write(rss_feed)
+    with open('temperature_feed.xml', 'wb') as f:  # Open the file in binary mode
+        f.write(rss_feed)  # Write the bytes to the file
 
 # Generate RSS feed
 generate_rss_feed()
