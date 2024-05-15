@@ -13,17 +13,13 @@ def generate_rss_feed():
     c = conn.cursor()
 
     # Query the database for the latest temperature data
-    c.execute("SELECT temperature, timestamp FROM temperature_data ORDER BY timestamp DESC LIMIT 1")
-    latest_data = c.fetchone()
+    c.execute("SELECT temperature FROM temperature_data ORDER BY timestamp DESC LIMIT 1")
+    latest_temperature = c.fetchone()
 
-    if latest_data:
-        latest_temperature = latest_data[0]
-        timestamp = latest_data[1]
-        
+    if latest_temperature:
         # Add the latest temperature as an entry to the feed
         fe = fg.add_entry()
-        fe.title(str(latest_temperature) + '°F')
-        fe.pubDate(timestamp)  # Set publication date to timestamp
+        fe.title(str(latest_temperature[0]) + '°F')
 
     # Close database connection
     conn.close()
