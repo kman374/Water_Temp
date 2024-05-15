@@ -13,32 +13,27 @@ def generate_rss_feed():
     c = conn.cursor()
 
     # Query the database for the latest temperature data
-    c.execute("SELECT temperature FROM temperature_data ORDER BY timestamp DESC LIMIT 1")
-    latest_temperature = c.fetchone()
+    c.execute("SELECT temperature, timestamp FROM temperature_data ORDER BY timestamp DESC LIMIT 1")
+    latest_data = c.fetchone()
 
-    if latest_temperature:
+    if latest_data:
+        latest_temperature = latest_data[0]
+        timestamp = latest_data[1]
+        
         # Add the latest temperature as an entry to the feed
         fe = fg.add_entry()
-        # Set only the temperature as the title within the item tag
-        fe.title(str(latest_temperature[0])+'°F')
+        fe.title(str(latest_temperature) + '°F')
+        fe.pubDate(timestamp)  # Set publication date to timestamp
 
     # Close database connection
     conn.close()
 
     # Generate RSS feed as string
     rss_feed = fg.rss_str(pretty=True)
-    rss_feed_str = rss_feed.decode('utf-8')  # Decode bytes to string
 
-    # Extract only the item tag with the title tag
-    start_tag = '<item>'
-    end_tag = '</item>'
-    start_index = rss_feed_str.find(start_tag)
-    end_index = rss_feed_str.find(end_tag) + len(end_tag)
-    item_tag = rss_feed_str[start_index:end_index]
-
-    # Write only the item tag with the title tag to the file
+    # Write the RSS feed to a file
     with open('temperature_feed.xml', 'w') as f:
-        f.write(item_tag)
+        f.write(rss_feed)
 
 # Generate RSS feed
 generate_rss_feed()
