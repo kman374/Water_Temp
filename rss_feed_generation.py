@@ -1,5 +1,11 @@
 from feedgen.feed import FeedGenerator
 import sqlite3
+import hashlib
+
+def generate_guid(content):
+    # Generate a unique GUID using a hash of the item's content
+    hash_object = hashlib.md5(content.encode())
+    return hash_object.hexdigest()
 
 def generate_rss_feed():
     # Initialize FeedGenerator
@@ -17,14 +23,17 @@ def generate_rss_feed():
     latest_temperature = c.fetchone()
 
     if latest_temperature:
+        temperature_value = str(latest_temperature[0]) + '°F'
+
         # Add the latest temperature as an entry to the feed
         fe = fg.add_entry()
-        fe.title(str(latest_temperature[0]) + '°F')
+        fe.title(temperature_value)
+        fe.guid(generate_guid(temperature_value), permalink=False)  # Set a unique GUID for the entry
 
     # Close database connection
     conn.close()
 
-    # Generate RSS feed as bytes
+    # Generate RSS feed as string
     rss_feed = fg.rss_str(pretty=True)
 
     # Write the RSS feed to a file
