@@ -6,10 +6,10 @@
     <description>RSS feed for water temperature updates</description>
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
-    <lastBuildDate>Mon, 10 Jun 2024 10:07:48 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Jun 2024 10:08:21 +0000</lastBuildDate>
     <item>
-      <title>64.8°F</title>
-      <guid isPermaLink="false">8b057dd277994190036d0afd565d4a82</guid>
+      <title>65.5°F</title>
+      <guid isPermaLink="false">c95fa261ff7b4e0ad68fc10b6a94d0ad</guid>
     </item>
   </channel>
 </rss>
